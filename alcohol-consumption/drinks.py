@@ -68,13 +68,14 @@ for i in range(len(data_arr)):
     data.append(arr)
 
 # Create DataFrame
-
-# Regex
 time_series = pd.DataFrame(data=data, columns=columns)
+
+# Regex cuz dat bish be trippin
 time_series['Year'] = time_series['Year'].str[:4]
 time_series = time_series[time_series.Year.str.match(r'^\d{4}$')]
+
+# Set Year as datetime index
 time_series.set_index(pd.DatetimeIndex(time_series.Year), inplace=True)
 time_series = time_series.apply(pd.to_numeric)
-
 time_series.loc[:, 'Beer':].plot(kind='line')
 plt.show()
